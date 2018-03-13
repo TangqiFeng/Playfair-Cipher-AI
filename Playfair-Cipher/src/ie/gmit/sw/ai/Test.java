@@ -11,12 +11,10 @@ import java.util.Scanner;
 public class Test {
 
     static char cipher [][] = new char[5][5];
-    static String message, decipherS, answer;
+    static String message, decipherS;
     static StringBuilder cipherTxt = new StringBuilder();
     static StringBuilder plainTxt = new StringBuilder();
     static int index = 0, alphIndex = 0, length;
-    static char[] alphabet = {'A','B','C','D','E','F','G','H','I','K','L',
-            'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
     public static void main(String[] args) {
 
@@ -26,13 +24,7 @@ public class Test {
         System.out.print("Please write the key: ");
         Scanner kb = new Scanner (System.in);
         String key = kb.nextLine().toUpperCase();
-        key = removeDuplicates(key).replaceAll("\\s+","");
-
-
-        //do {
-        System.out.print("Do you want to encrypt or decrypt (E/D)? ");
-        answer = kb.nextLine().toUpperCase();
-        //}while(!answer.equals("E") || !answer.equals("D"));
+        //key = removeDuplicates(key).replaceAll("\\s+","");
 
         System.out.print("\nPlease write the message: ");
         message = kb.nextLine().toUpperCase();
@@ -44,15 +36,6 @@ public class Test {
         key = key.replaceAll("J", " ");
         key = key.replaceAll("\\s", "");
 
-
-        // Remueve las letras que se repitan entre la llave y el alfabeto
-        for(int i = 0; i < 25; i++) {
-            StringBuilder k = new StringBuilder(key);
-            if(key.indexOf(alphabet[i]) == -1)  // -1 significa que la letra no se repite
-                k.append(alphabet[i]);
-            key = k.toString();
-        }
-
         // Añade la llave y el alfabeto a la matriz
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 5; j++) {
@@ -60,44 +43,30 @@ public class Test {
                     cipher[i][j] = key.charAt(index);
                     index++;
                 }
-                else
-                    cipher[i][j] = alphabet[alphIndex++];
             }
         }
 
         printCipher();
 
-        // Agrega una X al final del mensaje si su numero de caracteres es impar
-        if(message.length() % 2 != 0) {
-            StringBuilder ex = new StringBuilder(message);
-            ex.append("X");
-            message = ex.toString();
-        }
-
         pairByPair(message);
 
-        if(answer.equals("D"))
-            System.out.println("\nThe plain text is: " + plainTxt);
-        else if(answer.equals("E"))
-            System.out.println("\nThe cipher text is: " + cipherTxt);
-        else
-            System.out.println("Valores invalidos, por favor intente de nuevo");
+        System.out.println("\nThe plain text is: " + plainTxt);
 
         kb.close();
     }
 
     //***************************************************//
 
-    // Remueve letras que se repitan
-    public static String removeDuplicates(String s) {
-        StringBuilder noDupes = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            String si = s.substring(i, i + 1);
-            if (noDupes.indexOf(si) == -1)
-                noDupes.append(si);
-        }
-        return noDupes.toString();
-    }
+//    // remove dublicates
+//    public static String removeDuplicates(String s) {
+//        StringBuilder noDupes = new StringBuilder();
+//        for (int i = 0; i < s.length(); i++) {
+//            String si = s.substring(i, i + 1);
+//            if (noDupes.indexOf(si) == -1)
+//                noDupes.append(si);
+//        }
+//        return noDupes.toString();
+//    }
 
     // Imprime el cipher en consola
     public static void printCipher() {
@@ -158,16 +127,12 @@ public class Test {
             if(B == 'J')
                 B = 'I';
 
-            if(answer.equals("E"))
-                cipherTxt.append(findCharPosition(A, B, cipher));
-            else
-                plainTxt.append(findCharPosition(A, B, cipher));
+            plainTxt.append(findCharPosition(A, B, cipher));
         }
     }
 
     //***************************************************//
-
-    // Busca la localizacion en la matriz de cada par de letras del mensaje
+    // find a b position
     public static String findCharPosition(char A, char B, char[][] matrix) {
         int msgIndex = 0, rowA = 0, rowB = 0, colA = 0, colB = 0;
         while(msgIndex < length) {
@@ -183,46 +148,12 @@ public class Test {
             }
             msgIndex++;
         }
-        if(answer.equals("E"))
-            decipherS = encrypt(rowA, colA, rowB, colB, matrix);
-        else
-            decipherS = decrypt(rowA, colA, rowB, colB, matrix);
-
+        decipherS = decrypt(rowA, colA, rowB, colB, matrix);
         return decipherS;
     }
 
     //***************************************************//
-
-    // Cifra el mensaje
-    public static String encrypt(int rowA, int colA, int rowB, int colB, char[][] matrix) {
-        char s1, s2;
-        StringBuilder pair = new StringBuilder();
-        // si estan en la misma fila
-        if(rowA == rowB){
-            s1 = matrix[rowA][(colA + 1) % 5];
-            s2 = matrix[rowB][(colB + 1) % 5];
-            pair.append(s1).append(s2);
-            return pair.toString();
-        }
-        // si estan en la misma columna
-        else if(colA == colB) {
-            s1 = matrix[(rowA + 1) % 5][colA];
-            s2 = matrix[(rowB + 1) % 5][colB];
-            pair.append(s1).append(s2);
-            return pair.toString();
-        }
-        // si forman un rectangulo
-        else if(rowA != rowB && colA != colB) {
-            s1 = matrix[rowA][colB];
-            s2 = matrix[rowB][colA];
-            pair.append(s1).append(s2);
-        }
-        return pair.toString();
-    }
-
-    //***************************************************//
-
-    // Decifra el mensaje
+    // Decrypt
     public static String decrypt(int rowA, int colA, int rowB, int colB, char[][] matrix) {
         char s1, s2;
         StringBuilder pair = new StringBuilder();
