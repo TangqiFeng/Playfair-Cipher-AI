@@ -19,5 +19,7 @@ public class Runner {
         de.setKey(cipher);
         de.setCipher_text(cipher_text);
         System.out.println(de.decrypt());
+
+        System.out.println(new NGramCalculator("src/4grams.txt").get4Grams());
     }
 }
