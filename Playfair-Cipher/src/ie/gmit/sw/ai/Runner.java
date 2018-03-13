@@ -1,5 +1,7 @@
 package ie.gmit.sw.ai;
 
+import java.util.Map;
+
 public class Runner {
     public static void main(String[] args) {
         Decryptor de = new Decryptor();
@@ -20,6 +22,8 @@ public class Runner {
         de.setCipher_text(cipher_text);
         System.out.println(de.decrypt());
 
-        System.out.println(new NGramCalculator("src/4grams.txt").get4Grams());
+        NGramCalculator cal = new NGramCalculator("src/4grams.txt");
+        Map<String,Double> grams = cal.get4Grams();
+        System.out.println("Probability(q) = "+cal.calProbability(grams.get("APPY")));
     }
 }

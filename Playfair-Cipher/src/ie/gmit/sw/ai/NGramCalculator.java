@@ -44,4 +44,9 @@ public class NGramCalculator {
         }
         return grams;
     }
+
+    public Double calProbability(Double count){
+        // formula:  P(q) = count(q) / n
+        return count/total;
+    }
 }
