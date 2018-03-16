@@ -22,8 +22,8 @@ public class Runner {
         de.setCipher_text(cipher_text);
         System.out.println(de.decrypt());
 
-        NGramCalculator cal = new NGramCalculator("src/4grams.txt");
+        ProbabilityCalculator cal = new ProbabilityCalculator("src/4grams.txt");
         Map<String,Double> grams = cal.get4Grams();
-        System.out.println("Probability(q) = "+cal.calProbability(grams.get("APPY")));
+        System.out.println("Probability(q) = "+cal.calLogProbability(grams.get("APPY")));
     }
 }

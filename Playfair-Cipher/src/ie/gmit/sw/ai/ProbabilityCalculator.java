@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NGramCalculator {
+public class ProbabilityCalculator {
     // the path of file "4grams.txt"
     private String path;
     // The 4-grams and the count of their occurrence
@@ -12,7 +12,7 @@ public class NGramCalculator {
     // containing an aggregate total of 4,224,127,912 4-grams
     private final Double total = 4224127912.0;
 
-    public NGramCalculator(String path) {
+    public ProbabilityCalculator(String path) {
         this.path = path;
     }
 
@@ -48,5 +48,10 @@ public class NGramCalculator {
     public Double calProbability(Double count){
         // formula:  P(q) = count(q) / n
         return count/total;
+    }
+
+    public Double calLogProbability(Double count){
+        // formula:  log10(P(q)) = log10(count(q) / n)
+        return Math.log10(count/total);
     }
 }
