@@ -89,4 +89,14 @@ public class KeyShuffler {
         }
         return key;
     }
+
+    // flip all cols
+    public char[][] filpAllCols(){
+        for (int i = 0; i < 2; i++){
+            char[] temp = key[i];
+            key[i] = key[4-i];
+            key[4-i] = temp;
+        }
+        return key;
+    }
 }
