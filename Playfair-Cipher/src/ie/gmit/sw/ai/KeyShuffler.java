@@ -26,24 +26,24 @@ public class KeyShuffler {
     public char[][] shuffleKey(){
         Double random = Math.random()*100;
         if(random < 90){
-
+            return swapSingleLetter();
         }else if (random <= 91){
-
+            return swapRandomRows();
         }else if (random <= 93){
-
+            return  swapRandomCols();
         }else if (random <= 95){
-
+            return filpAllRows();
         }else if (random <= 97){
-
+            return filpAllCols();
         }else if (random <= 99){
-
+            return reverseWholeKey();
         }
         return key;
     }
 
     // generate 4 random number, range [0,4]
     // swap key[a][b] <=> key[c][d]
-    public char[][] swapSingleLetter(){
+    private char[][] swapSingleLetter(){
         int a = (int) (Math.random()*5);
         int b = (int) (Math.random()*5);
         int c = (int) (Math.random()*5);
@@ -67,7 +67,7 @@ public class KeyShuffler {
 
     // generate 2 random number, range [0,4]
     // swap col a <=> col b
-    public char[][] swapRandomCols(){
+    private char[][] swapRandomCols(){
         int a = (int) (Math.random()*5);
         int b = (int) (Math.random()*5);
         for (int i = 0; i < 5; i++){
@@ -79,7 +79,7 @@ public class KeyShuffler {
     }
 
     // flip all rows
-    public char[][] filpAllRows(){
+    private char[][] filpAllRows(){
         for (int i = 0; i < 5; i++){
             for (int j = 0; j < 2; j++){
                 char temp = key[i][j];
@@ -91,7 +91,7 @@ public class KeyShuffler {
     }
 
     // flip all cols
-    public char[][] filpAllCols(){
+    private char[][] filpAllCols(){
         for (int i = 0; i < 2; i++){
             char[] temp = key[i];
             key[i] = key[4-i];
@@ -101,7 +101,7 @@ public class KeyShuffler {
     }
 
     // Reverse the whole key
-    public char[][] reverseWholeKey(){
+    private char[][] reverseWholeKey(){
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 5; j++){
                 char temp = key[i][j];
@@ -112,7 +112,6 @@ public class KeyShuffler {
             key[2][i] = key[2][4 - i];
             key[2][4 - i] = temp;
         }
-
         return key;
     }
 

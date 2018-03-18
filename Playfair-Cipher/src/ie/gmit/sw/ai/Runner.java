@@ -27,5 +27,8 @@ public class Runner {
         System.out.println("Probability(q) = "+cal.calLogProbability(grams.get("APPY")));
 
         System.out.println(new KeyGenerator().getRandomKey());
+
+        System.out.println(new KeyShuffler(cipher).shuffleKey());
+
     }
 }
