@@ -10,7 +10,7 @@ public class ProbabilityCalculator {
     // The 4-grams and the count of their occurrence
     // were computed by sampling a set of text documents
     // containing an aggregate total of 4,224,127,912 4-grams
-    private final Double total = 4224127912.0;
+    private static final Double total = 4224127912.0;
 
     public ProbabilityCalculator(String path) {
         this.path = path;
@@ -45,12 +45,12 @@ public class ProbabilityCalculator {
         return grams;
     }
 
-    public Double calProbability(Double count){
+    public static Double calProbability(Double count){
         // formula:  P(q) = count(q) / n
         return count/total;
     }
 
-    public Double calLogProbability(Double count){
+    public static Double calLogProbability(Double count){
         // formula:  log10(P(q)) = log10(count(q) / n)
         return Math.log10(count/total);
     }

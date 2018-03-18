@@ -20,7 +20,8 @@ public class Runner {
         }
         de.setKey(cipher);
         de.setCipher_text(cipher_text);
-        System.out.println(de.decrypt());
+        String plain_text =  de.decrypt();
+        System.out.println(plain_text);
 
         ProbabilityCalculator cal = new ProbabilityCalculator("src/4grams.txt");
         Map<String,Double> grams = cal.get4Grams();
@@ -29,6 +30,8 @@ public class Runner {
         System.out.println(new KeyGenerator().getRandomKey());
 
         System.out.println(new KeyShuffler(cipher).shuffleKey());
+
+        System.out.println(HeuristicCalculator.getHeuristicValue(plain_text,grams));
 
     }
 }
