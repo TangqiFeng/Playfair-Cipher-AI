@@ -41,6 +41,8 @@ public class KeyShuffler {
         return key;
     }
 
+    // generate 4 random number, range [0,4]
+    // swap key[a][b] <=> key[c][d]
     public char[][] SwapSingleLetter(){
         int a = (int) (Math.random()*5);
         int b = (int) (Math.random()*5);
@@ -50,5 +52,16 @@ public class KeyShuffler {
         key[a][b] = key[c][d];
         key[c][d] = temp;
         return  key;
+    }
+
+    // generate 2 random number, range [0,4]
+    // swap row a <=> row b
+    public char[][] SwapRandomRows(){
+        int a = (int) (Math.random()*5);
+        int b = (int) (Math.random()*5);
+        char[] temp = key[a];
+        key[a] = key[b];
+        key[b] = temp;
+        return key;
     }
 }
