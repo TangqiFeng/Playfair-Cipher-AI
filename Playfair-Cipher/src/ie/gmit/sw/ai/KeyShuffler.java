@@ -43,7 +43,7 @@ public class KeyShuffler {
 
     // generate 4 random number, range [0,4]
     // swap key[a][b] <=> key[c][d]
-    public char[][] SwapSingleLetter(){
+    public char[][] swapSingleLetter(){
         int a = (int) (Math.random()*5);
         int b = (int) (Math.random()*5);
         int c = (int) (Math.random()*5);
@@ -56,7 +56,7 @@ public class KeyShuffler {
 
     // generate 2 random number, range [0,4]
     // swap row a <=> row b
-    public char[][] SwapRandomRows(){
+    public char[][] swapRandomRows(){
         int a = (int) (Math.random()*5);
         int b = (int) (Math.random()*5);
         char[] temp = key[a];
@@ -67,13 +67,25 @@ public class KeyShuffler {
 
     // generate 2 random number, range [0,4]
     // swap col a <=> col b
-    public char[][] SwapRandomCols(){
+    public char[][] swapRandomCols(){
         int a = (int) (Math.random()*5);
         int b = (int) (Math.random()*5);
         for (int i = 0; i < 5; i++){
             char temp = key[i][a];
             key[i][a] = key[i][b];
             key[i][b] = temp;
+        }
+        return key;
+    }
+
+    // flip all rows
+    public char[][] filpAllRows(){
+        for (int i = 0; i < 5; i++){
+            for (int j = 0; j < 2; j++){
+                char temp = key[i][j];
+                key[i][j] = key[i][4 - j];
+                key[i][4 - j] = temp;
+            }
         }
         return key;
     }
