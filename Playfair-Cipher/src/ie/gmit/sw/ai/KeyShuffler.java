@@ -99,4 +99,21 @@ public class KeyShuffler {
         }
         return key;
     }
+
+    // Reverse the whole key
+    public char[][] reverseWholeKey(){
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 5; j++){
+                char temp = key[i][j];
+                key[i][j] = key[4 - i][4 - j];
+                key[4 - i][4 - j] = temp;
+            }
+            char temp = key[2][i];
+            key[2][i] = key[2][4 - i];
+            key[2][4 - i] = temp;
+        }
+
+        return key;
+    }
+
 }
