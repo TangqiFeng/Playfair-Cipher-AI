@@ -64,4 +64,17 @@ public class KeyShuffler {
         key[b] = temp;
         return key;
     }
+
+    // generate 2 random number, range [0,4]
+    // swap col a <=> col b
+    public char[][] SwapRandomCols(){
+        int a = (int) (Math.random()*5);
+        int b = (int) (Math.random()*5);
+        for (int i = 0; i < 5; i++){
+            char temp = key[i][a];
+            key[i][a] = key[i][b];
+            key[i][b] = temp;
+        }
+        return key;
+    }
 }
