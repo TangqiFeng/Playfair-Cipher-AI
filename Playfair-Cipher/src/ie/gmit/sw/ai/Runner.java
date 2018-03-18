@@ -25,5 +25,7 @@ public class Runner {
         ProbabilityCalculator cal = new ProbabilityCalculator("src/4grams.txt");
         Map<String,Double> grams = cal.get4Grams();
         System.out.println("Probability(q) = "+cal.calLogProbability(grams.get("APPY")));
+
+        System.out.println(new KeyGenerator().getRandomKey());
     }
 }
