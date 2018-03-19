@@ -1,5 +1,6 @@
 package ie.gmit.sw.ai;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -22,8 +23,24 @@ public class KeyGenerator {
         }
     }
 
-    public char[] getRandomKey(){
+    public char[][] getRandomKey(){
         shuffle();
-        return alphabet;
+        return get2dArrayKey();
+    }
+
+    // change key to 2d-array
+    private char[][] get2dArrayKey(){
+        char[][] newKey = new char[5][5];
+        for (int i = 0; i < 5; i++){
+            for (int j = 0; j < 5; j++){
+                newKey[i][j] = alphabet[i * 5 + j];
+            }
+        }
+        return newKey;
+    }
+
+    // 2-d array convert to String
+    public static String convertToString(char[][] key){
+        return Arrays.toString(key).replaceAll("\\[|\\]|,|\\s", "");
     }
 }
