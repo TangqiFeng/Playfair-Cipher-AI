@@ -31,6 +31,8 @@ public class Decryptor {
     public String decrypt(){
         // used for check pairs for decrypting
         char A, B;
+        // flag to check is/not add 'x' to the end manually
+        boolean flag = false;
         // check cipher_text is odd/even X
         if(cipher_text.length() % 2 == 0) {
             //System.out.println("even");
@@ -48,6 +50,14 @@ public class Decryptor {
         for(int i = 0; i < length; i += 2) {
             //System.out.println("letter A: " + message.charAt(i));
             A = cipher_text.charAt(i);
+            /* when text length is odd, and 'X' already added to the end by manually,
+               then, it will contribute to infinite loop.*/
+            // check if A = 'X' and is the last one
+            if(i == length-2){
+                // exit loop if the last char is 'X', which is added manually
+                if(flag)
+                    break;
+            }
             if(i + 1 > length)
                 B = 'X';
             else
@@ -64,6 +74,7 @@ public class Decryptor {
                 if((length) % 2 == 1) {
                     StringBuilder ex = new StringBuilder(cipher_text);
                     ex.append("X");
+                    flag = true;
                     cipher_text = ex.toString();
                 }
                 i-= 1;
