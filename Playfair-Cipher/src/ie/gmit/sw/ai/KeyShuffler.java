@@ -26,18 +26,18 @@ public class KeyShuffler {
     }
 
     public char[][] shuffleKey(){
-        Double random = Math.random()*100;
-        if(random < 90){
+        Double random = Math.random()*50;
+        if(random > 5){
             return swapSingleLetter();
-        }else if (random <= 91){
+        }else if (random == 0){
             return swapRandomRows();
-        }else if (random <= 93){
+        }else if (random == 1){
             return  swapRandomCols();
-        }else if (random <= 95){
+        }else if (random == 2){
             return filpAllRows();
-        }else if (random <= 97){
+        }else if (random == 3){
             return filpAllCols();
-        }else if (random <= 99){
+        }else if (random == 4){
             return reverseWholeKey();
         }
         return key;
