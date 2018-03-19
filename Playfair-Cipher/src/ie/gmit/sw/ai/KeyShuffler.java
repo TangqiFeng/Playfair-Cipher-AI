@@ -13,7 +13,9 @@ public class KeyShuffler {
     private char[][] key = new char[5][5];
 
     public KeyShuffler(char[][] key) {
-        this.key = key;
+        for (int i = 0; i < 5; i++){
+            System.arraycopy(key[i],0,this.key[i],0,5);
+        }
     }
 
     public KeyShuffler() {
@@ -48,10 +50,12 @@ public class KeyShuffler {
         int b = (int) (Math.random()*5);
         int c = (int) (Math.random()*5);
         int d = (int) (Math.random()*5);
-        char temp = key[a][b];
-        key[a][b] = key[c][d];
-        key[c][d] = temp;
-        return  key;
+        char[][] newKey = new char[5][5];
+        System.arraycopy(key,0,newKey,0,key.length);
+        char temp = newKey[a][b];
+        newKey[a][b] = newKey[c][d];
+        newKey[c][d] = temp;
+        return  newKey;
     }
 
     // generate 2 random number, range [0,4]
