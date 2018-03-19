@@ -1,5 +1,6 @@
 package ie.gmit.sw.ai;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class SimulatedAnnealing {
@@ -49,6 +50,7 @@ public class SimulatedAnnealing {
                     }
                 }
             }
+            System.out.println("temp = "+temp+", key:"+ Arrays.deepToString(parent));
         }
         // return the key
         return KeyGenerator.convertToString(parent);

@@ -14,7 +14,7 @@ public class HeuristicCalculator {
             if(grams.get(subString) != null){
                 heuristic += ProbabilityCalculator.calLogProbability(grams.get(subString));
             }
-            i += 4; // change 4, more smaller, more accurate, and need more time!!!
+            i += 1; // change 1, more smaller, more accurate, and need more time!!!
         }
         return  heuristic;
     }
