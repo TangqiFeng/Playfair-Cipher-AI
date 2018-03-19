@@ -28,63 +28,18 @@ public class Decryptor {
         this.cipher_text = cipher_text;
     }
 
+    /*
+     For decrypting, there are no chance exit scenario:
+     1) for pair (cipher[2n] == cipher[2n+1])
+     2) the length of cipher_text is odd
+     3) cipher_text exists 'J'
+     */
     public String decrypt(){
         // used for check pairs for decrypting
         char A, B;
-        // flag to check is/not add 'x' to the end manually
-        boolean flag = false;
-        // check cipher_text is odd/even X
-        if(cipher_text.length() % 2 == 0) {
-            //System.out.println("even");
-            length = cipher_text.length() - 1;
-        }
-        else {
-            //System.out.println("odd");
-            length = cipher_text.length();
-        }
-        // Add 'X'
-        // 1) If the plaintext has an odd number of characters, append
-        //    the letter X to make it even
-        // 2) Parse any double letters, replace the second occurrence
-        //    with the letter X
-        for(int i = 0; i < length; i += 2) {
-            //System.out.println("letter A: " + message.charAt(i));
+        for(int i = 0; i < cipher_text.length() - 1; i += 2) {
             A = cipher_text.charAt(i);
-            /* when text length is odd, and 'X' already added to the end by manually,
-               then, it will contribute to infinite loop.*/
-            // check if A = 'X' and is the last one
-            if(i == length-2){
-                // exit loop if the last char is 'X', which is added manually
-                if(flag)
-                    break;
-            }
-            if(i + 1 > length)
-                B = 'X';
-            else
-                //System.out.println("letter : " + message.charAt(i+1));
-                B = cipher_text.charAt(i + 1);
-
-            // Add an 'X' character if there are two consecutive equal letters
-            if(A == B) {
-                B = 'X';
-
-                // When an X is appended, if the string is uneven, add an X at the end
-                // so it can be paired
-                length += 2;
-                if((length) % 2 == 1) {
-                    StringBuilder ex = new StringBuilder(cipher_text);
-                    ex.append("X");
-                    flag = true;
-                    cipher_text = ex.toString();
-                }
-                i-= 1;
-            }
-            // Substitute 'J' characters for 'I' characters
-            if(A == 'J')
-                A = 'I';
-            if(B == 'J')
-                B = 'I';
-
+            B = cipher_text.charAt(i + 1);
             plain_text.append(findCharPosition(A, B, key));
         }
         return plain_text.toString();
