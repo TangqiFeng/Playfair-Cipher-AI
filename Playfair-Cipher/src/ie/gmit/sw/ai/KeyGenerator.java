@@ -41,6 +41,6 @@ public class KeyGenerator {
 
     // 2-d array convert to String
     public static String convertToString(char[][] key){
-        return Arrays.toString(key).replaceAll("\\[|\\]|,|\\s", "");
+        return Arrays.deepToString(key).replaceAll("\\[|\\]|,|\\s", "");
     }
 }
