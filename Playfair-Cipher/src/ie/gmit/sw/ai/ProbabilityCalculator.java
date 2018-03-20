@@ -37,6 +37,7 @@ public class ProbabilityCalculator {
                 bufferedReader.close();// close BufferedReader
             }else {
                 System.out.println("file is not exist.");
+                System.exit(0);
             }
         }catch (Exception e) {
             System.out.println("fail to read 4grams file.");

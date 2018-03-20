@@ -1,13 +1,24 @@
 package ie.gmit.sw.ai;
 
 import java.util.Map;
+import java.util.Scanner;
 
 public class Runner {
     public static void main(String[] args) {
-        String cipher_text = "HEQEFIRCHITZMHUKOTXEDKWLHKHQVDSIEAKOZTXMTKOEEQSBXTDYHEUKUDBMKYZTFIRCEOMIYOZAEAMKIUZNQHTWDUOBVUDUPNOIEHEQKDLYWXNWILAZDYYOFTWAGADTVUDXXIEKITLKGKSIUYYOYETWDUOCHEFWHEKOABOKHUIMAREMWNFWFWIUNTTIOIOZAZTWFBRC";
-        ProbabilityCalculator cal = new ProbabilityCalculator("src/4grams.txt");
+        System.out.println("playdair-cipher SA");
+        Scanner cin = new Scanner(System.in);
+        System.out.println("please type the path of cipher_text file:");
+        String cipherPath = cin.nextLine();
+        String cipher_text = FileHandler.readFile(cipherPath);
+        System.out.println("please type the path of file '4grams.txt':");
+        String gramPath = cin.nextLine();
+        ProbabilityCalculator cal = new ProbabilityCalculator(gramPath);
         Map<String,Double> grams = cal.get4Grams();
-        System.out.println(new SimulatedAnnealing(cipher_text,grams).run());
+        SimulatedAnnealing SA = new SimulatedAnnealing(cipher_text,grams);
+        System.out.println("key: "+ SA.run());
+        FileHandler.writeFile("plain_text",SA.getPlain_text());
+        System.out.println("plain_text.txt is generated. (current path)");
+
 
 
 //        // For testing Decryptor

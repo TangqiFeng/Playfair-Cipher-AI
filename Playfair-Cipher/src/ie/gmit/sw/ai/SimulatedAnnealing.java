@@ -13,6 +13,10 @@ public class SimulatedAnnealing {
         this.grams = grams;
     }
 
+    public String getPlain_text() {
+        return plain_text;
+    }
+
     public String run(){
         // step 1
         // Generate a random 25 letter key called parent
@@ -50,7 +54,7 @@ public class SimulatedAnnealing {
                     }
                 }
             }
-            System.out.println("temp = "+temp+", key:"+ Arrays.deepToString(parent));
+            System.out.println("End of temp = "+temp+", key:"+ Arrays.deepToString(parent));
         }
         // return the key
         return KeyGenerator.convertToString(parent);
