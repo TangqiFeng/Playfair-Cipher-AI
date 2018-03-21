@@ -33,9 +33,9 @@ public class SimulatedAnnealing {
         // Starting Temperature = 10
         // Final Temperature = 0
         // Temperature Decrement = 1
-        for (int temp = 10; temp >= 0; temp--){
+        for (int temp = 50; temp >= 0; temp--){
             // Iterations at each temperature = 50000
-            for (int trainsitions = 50000; trainsitions >= 0; trainsitions--){
+            for (int trainsitions = 15000; trainsitions >= 0; trainsitions--){
                 // make a small change to the key
                 char[][] child = new KeyShuffler(parent).shuffleKey();
                 // calculate child heuristic value

@@ -12,7 +12,7 @@ public class Runner {
         String cipher_text = FileHandler.readFile(cipherPath);
         System.out.println("please type the path of file '4grams.txt':");
         String gramPath = cin.nextLine();
-        ProbabilityCalculator cal = new ProbabilityCalculator(gramPath);
+        GramLoader cal = new GramLoader(gramPath);
         Map<String,Double> grams = cal.get4Grams();
         SimulatedAnnealing SA = new SimulatedAnnealing(cipher_text,grams);
         System.out.println("key: "+ SA.run());
@@ -38,8 +38,8 @@ public class Runner {
 //                new Decryptor(cipher,"SIIOOBKCSMKOHQSLBAKDKH”")
 //                        .decrypt());
 
-//        // for testing HeuristicCalculator & ProbabilityCalculator
-//        ProbabilityCalculator cal = new ProbabilityCalculator("src/4grams.txt");
+//        // for testing HeuristicCalculator & GramLoader
+//        GramLoader cal = new GramLoader("src/4grams.txt");
 //        Map<String,Double> grams = cal.get4Grams();
 //        System.out.println(HeuristicCalculator.getHeuristicValue("HAPPYDAYS",grams));
     }

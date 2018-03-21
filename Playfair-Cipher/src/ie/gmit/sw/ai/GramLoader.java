@@ -4,15 +4,11 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProbabilityCalculator {
+public class GramLoader {
     // the path of file "4grams.txt"
     private String path;
-    // The 4-grams and the count of their occurrence
-    // were computed by sampling a set of text documents
-    // containing an aggregate total of 4,224,127,912 4-grams
-    private static final Double total = 4224127912.0;
 
-    public ProbabilityCalculator(String path) {
+    public GramLoader(String path) {
         this.path = path;
     }
 
@@ -44,15 +40,5 @@ public class ProbabilityCalculator {
             e.printStackTrace();
         }
         return grams;
-    }
-
-    public static Double calProbability(Double count){
-        // formula:  P(q) = count(q) / n
-        return count/total;
-    }
-
-    public static Double calLogProbability(Double count){
-        // formula:  log10(P(q)) = log10(count(q) / n)
-        return Math.log10(count/total);
     }
 }
