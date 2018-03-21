@@ -10,6 +10,7 @@ public class FileHandler {
      1) for pair (cipher[2n] == cipher[2n+1])
      2) the length of cipher_text is odd
      3) cipher_text exists 'J'
+     4) cipher_text is not end with 'X'
      */
     public static String readFile(String path){
         String text = null;
@@ -30,6 +31,16 @@ public class FileHandler {
                 text = sb.toString();
                 read.close(); //close InputStreamReader
                 bufferedReader.close();// close BufferedReader
+                // when length is odd,
+                // if last ele is 'X' then remove, other with add 'X'
+                if(text.length() % 2 != 0) {
+                    StringBuilder ex = new StringBuilder(text);
+                    if(text.charAt(text.length()-1) != 'X')
+                        ex.append("X");
+                    else
+                        ex.deleteCharAt(text.length()-1);
+                    text = ex.toString();
+                }
             }else {
                 System.out.println("file is not exist.");
                 System.exit(0);

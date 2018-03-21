@@ -15,6 +15,7 @@ public class Decryptor {
     public Decryptor(char[][] key, String cipher_text) {
         this.key = key;
         this.cipher_text = cipher_text;
+        this.length=cipher_text.length()-1;
     }
 
     public Decryptor() {
@@ -33,13 +34,26 @@ public class Decryptor {
      1) for pair (cipher[2n] == cipher[2n+1])
      2) the length of cipher_text is odd
      3) cipher_text exists 'J'
+     4) cipher_text is not end with 'X'
      */
     public String decrypt(){
         // used for check pairs for decrypting
         char A, B;
-        for(int i = 0; i < cipher_text.length() - 1; i += 2) {
+        for(int i = 0; i < length; i += 2) {
             A = cipher_text.charAt(i);
             B = cipher_text.charAt(i + 1);
+            if(A == B) {
+                B = 'X';
+                // When an X is appended, if the string is uneven, add an X at the end
+                // so it can be paired
+                length += 2;
+                if((length) % 2 == 1) {
+                    StringBuilder ex = new StringBuilder(cipher_text);
+                    ex.append("X");
+                    cipher_text = ex.toString();
+                }
+                i-= 1;
+            }
             plain_text.append(findCharPosition(A, B, key));
         }
         return plain_text.toString();
@@ -47,16 +61,19 @@ public class Decryptor {
 
     // find a b position
     private String findCharPosition(char A, char B, char[][] matrix) {
-        int  rowA = 0, rowB = 0, colA = 0, colB = 0;
-        for(int i = 0; i < 5; i++) {
-            for(int j = 0; j < 5; j++) {
-                if(matrix[i][j] == A) {
-                    rowA = i;
-                    colA = j; }
-                if(matrix[i][j] == B) {
-                    rowB = i;
-                    colB = j; }
+        int msgIndex = 0, rowA = 0, rowB = 0, colA = 0, colB = 0;
+        while(msgIndex < length) {
+            for(int i = 0; i < 5; i++) {
+                for(int j = 0; j < 5; j++) {
+                    if(matrix[i][j] == A) {
+                        rowA = i;
+                        colA = j; }
+                    if(matrix[i][j] == B) {
+                        rowB = i;
+                        colB = j; }
+                }
             }
+            msgIndex++;
         }
         return decrypt(rowA, colA, rowB, colB, matrix);
     }
