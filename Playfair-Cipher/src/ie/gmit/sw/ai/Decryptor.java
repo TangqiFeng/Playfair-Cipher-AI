@@ -44,15 +44,6 @@ public class Decryptor {
             B = cipher_text.charAt(i + 1);
             if(A == B) {
                 B = 'X';
-                // When an X is appended, if the string is uneven, add an X at the end
-                // so it can be paired
-                length += 2;
-                if((length) % 2 == 1) {
-                    StringBuilder ex = new StringBuilder(cipher_text);
-                    ex.append("X");
-                    cipher_text = ex.toString();
-                }
-                i-= 1;
             }
             plain_text.append(findCharPosition(A, B, key));
         }
@@ -61,19 +52,16 @@ public class Decryptor {
 
     // find a b position
     private String findCharPosition(char A, char B, char[][] matrix) {
-        int msgIndex = 0, rowA = 0, rowB = 0, colA = 0, colB = 0;
-        while(msgIndex < length) {
-            for(int i = 0; i < 5; i++) {
-                for(int j = 0; j < 5; j++) {
-                    if(matrix[i][j] == A) {
-                        rowA = i;
-                        colA = j; }
-                    if(matrix[i][j] == B) {
-                        rowB = i;
-                        colB = j; }
-                }
+        int rowA = 0, rowB = 0, colA = 0, colB = 0;
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 5; j++) {
+                if(matrix[i][j] == A) {
+                    rowA = i;
+                    colA = j; }
+                if(matrix[i][j] == B) {
+                    rowB = i;
+                    colB = j; }
             }
-            msgIndex++;
         }
         return decrypt(rowA, colA, rowB, colB, matrix);
     }
