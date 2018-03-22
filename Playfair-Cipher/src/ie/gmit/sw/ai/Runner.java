@@ -15,9 +15,12 @@ public class Runner {
         GramLoader cal = new GramLoader(gramPath);
         Map<String,Double> grams = cal.get4Grams();
         SimulatedAnnealing SA = new SimulatedAnnealing(cipher_text,grams);
-        System.out.println("key: "+ SA.run());
-        FileHandler.writeFile("plain_text",SA.getPlain_text());
-        System.out.println("plain_text.txt is generated. (current path)");
+        String BESTKEY = SA.run();
+        System.out.println("key: "+ BESTKEY);
+        String PLAINTXT = SA.getPlain_text();
+        FileHandler.writeFile("plain_text",PLAINTXT);
+        System.out.println(PLAINTXT);
+        System.out.println("Also, plain_text.txt is generated. (current path)");
 
 
 

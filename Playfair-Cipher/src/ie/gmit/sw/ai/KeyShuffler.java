@@ -1,5 +1,7 @@
 package ie.gmit.sw.ai;
 
+import java.util.Random;
+
 /*
  change the key
 • Swap single letters (90%)
@@ -26,8 +28,8 @@ public class KeyShuffler {
     }
 
     public char[][] shuffleKey(){
-        Double random = Math.random()*50;
-        if(random > 5){
+        int random = (int) (Math.random()*50);
+        if(random > 4){
             return swapSingleLetter();
         }else if (random == 0){
             return swapRandomRows();

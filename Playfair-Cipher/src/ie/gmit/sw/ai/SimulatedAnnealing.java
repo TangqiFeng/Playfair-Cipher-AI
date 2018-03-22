@@ -7,14 +7,16 @@ public class SimulatedAnnealing {
     private String cipher_text;
     private String plain_text;
     private Map<String,Double> grams;
-
+    Double bestScore;
+    char[][] bestKey = new char[5][5];
     public SimulatedAnnealing(String cipher_text, Map<String, Double> grams) {
         this.cipher_text = cipher_text;
         this.grams = grams;
+        this.bestScore = Double.NEGATIVE_INFINITY;
     }
 
     public String getPlain_text() {
-        return plain_text;
+        return new Decryptor(bestKey, cipher_text).decrypt();
     }
 
     public String run(){
@@ -33,9 +35,10 @@ public class SimulatedAnnealing {
         // Starting Temperature = 10
         // Final Temperature = 0
         // Temperature Decrement = 1
-        for (int temp = 50; temp >= 0; temp--){
+        int c=0;
+        for (int temp = 10; temp > 0; temp--){
             // Iterations at each temperature = 50000
-            for (int trainsitions = 15000; trainsitions >= 0; trainsitions--){
+            for (int trainsitions = 60000; trainsitions > 0; trainsitions--){
                 // make a small change to the key
                 char[][] child = new KeyShuffler(parent).shuffleKey();
                 // calculate child heuristic value
@@ -48,13 +51,20 @@ public class SimulatedAnnealing {
                     score = h;
                 }else if (delta < 0){
                     Double p = Math.exp(delta/temp);
-                    if (p > Math.random()){
+                    if (p > 0.5){
+                        if (score > bestScore)
+                        {
+                            bestScore = score;
+                            bestKey = parent;
+                        }
                         parent = child;
                         score = h;
+                        c++;
                     }
                 }
             }
-            System.out.println("End of temp = "+temp+", key:"+ Arrays.deepToString(parent));
+            //System.out.println(c); c=0;
+            System.out.println("End of temp = "+temp+", score:"+ score);
         }
         // return the key
         return KeyGenerator.convertToString(parent);

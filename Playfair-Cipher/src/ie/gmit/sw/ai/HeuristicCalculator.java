@@ -10,15 +10,18 @@ public class HeuristicCalculator {
 
     public static Double getHeuristicValue(String plain_text,Map<String,Double> grams){
         Double heuristic = 0.0;
-        int i = 0; // used to control move step
-        while (i <= plain_text.length() - 4){
+        // i used to control move step
+        // change 1, more smaller, more accurate, and need more time!!!
+        for (int i=0;i<plain_text.length()-3;i += 1){
             //if (i + 4 > plain_text.length())
             String subString = plain_text.substring(i, i+4);
             // skip not exist grams, for example:'OQOZ'
-            if(grams.get(subString) != null){
-                heuristic += Math.log10((grams.get(subString)/total));
+            if(grams.containsKey(subString)){
+                Double value = grams.get(subString);
+                heuristic += Math.log10(value)/Math.log10(total);
+            }else {
+                heuristic += 0;
             }
-            i += 1; // change 1, more smaller, more accurate, and need more time!!!
         }
         return  heuristic;
     }
