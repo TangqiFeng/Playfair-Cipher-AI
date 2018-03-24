@@ -8,11 +8,16 @@ public class HeuristicCalculator {
     // containing an aggregate total of 4,224,127,912 4-grams
     private static final Double total = 4224127912.0;
 
+    // step is used to control move step
+    // e.g. text = HAPPYDAYS
+    // step=1 => HAPP APPY PPYD ... ...
+    // step=2 => HAPP PPYD YNAY ... ...
+    // more smaller, more accurate, and need more time!!!
+    private static int step = 2;
+
     public static Double getHeuristicValue(String plain_text,Map<String,Double> grams){
         Double heuristic = 0.0;
-        // i used to control move step
-        // change 1, more smaller, more accurate, and need more time!!!
-        for (int i=0;i<plain_text.length()-3;i += 1){
+        for (int i=0;i<plain_text.length()-3;i += step){
             //if (i + 4 > plain_text.length())
             String subString = plain_text.substring(i, i+4);
             // skip not exist grams, for example:'OQOZ'

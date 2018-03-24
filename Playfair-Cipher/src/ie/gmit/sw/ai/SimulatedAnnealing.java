@@ -4,6 +4,12 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class SimulatedAnnealing {
+    // attributes fot SA
+    private float temperature = 10;
+    private float step = 1;
+    private float finalTemperature = 0;
+    private float trainsition = 55000;
+
     private String cipher_text;
     private String plain_text;
     private Map<String,Double> grams;
@@ -32,13 +38,10 @@ public class SimulatedAnnealing {
         // get heuristic value of the key (logProbability)
         Double score = HeuristicCalculator.getHeuristicValue(plain_text, grams);
 
-        // Starting Temperature = 10
-        // Final Temperature = 0
-        // Temperature Decrement = 1
-        int c=0;
-        for (int temp = 10; temp > 0; temp--){
-            // Iterations at each temperature = 50000
-            for (int trainsitions = 60000; trainsitions > 0; trainsitions--){
+        // main loop
+        for (float temp = temperature; temp > finalTemperature; temp-=step){
+            // Iterations at each temperature
+            for (float trainsitions = trainsition; trainsitions > 0; trainsitions--){
                 // make a small change to the key
                 char[][] child = new KeyShuffler(parent).shuffleKey();
                 // calculate child heuristic value
@@ -59,11 +62,9 @@ public class SimulatedAnnealing {
                         }
                         parent = child;
                         score = h;
-                        c++;
                     }
                 }
             }
-            //System.out.println(c); c=0;
             System.out.println("End of temp = "+temp+", score:"+ score);
         }
         // return the key
