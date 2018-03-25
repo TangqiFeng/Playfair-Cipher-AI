@@ -3,6 +3,15 @@ package ie.gmit.sw.ai;
 import java.util.Arrays;
 import java.util.Map;
 
+/*
+ this Simulated Annealing algorithm is used to  try to find a unknown key.
+ Using n-Gram Statistics (log probability) as a Heuristic Function.
+ during the whole process, only current node (parent) and next child node (shuffled
+ parent ) are stored. Once child is better than parent, then assign the key to parent.
+
+ For time complexity, this algorithm need to finish the whole for loop, cause we do
+ not know the goal node. so it depends on the temperature, step and trainsitions ...
+ */
 public class SimulatedAnnealing {
     // attributes fot SA
     private float temperature = 10;
@@ -13,6 +22,8 @@ public class SimulatedAnnealing {
     private String cipher_text;
     private String plain_text;
     private Map<String,Double> grams;
+    // to avoid missing the best value, create bestScore & best[][] to store the current
+    // parent when randomly change the parent to the worse case.
     Double bestScore;
     char[][] bestKey = new char[5][5];
     public SimulatedAnnealing(String cipher_text, Map<String, Double> grams) {

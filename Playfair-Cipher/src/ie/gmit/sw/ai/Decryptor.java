@@ -4,6 +4,9 @@ package ie.gmit.sw.ai;
  this class used to decrypt PlayFair cipher
  adapt from :
  https://github.com/EmaCorrea/Playfair-Cipher/blob/master/Playfair/src/v3/Playfair_Cipher.java
+
+ this decryptor stores a 5*5 2d-array for the key.
+ When starting decrypt, need loop each col and row to find such pair letter's position
  */
 public class Decryptor {
     private char[][] key;
