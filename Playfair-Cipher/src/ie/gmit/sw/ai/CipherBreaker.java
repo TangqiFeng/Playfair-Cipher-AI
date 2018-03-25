@@ -3,7 +3,7 @@ package ie.gmit.sw.ai;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Runner {
+public class CipherBreaker {
     public static void main(String[] args) {
         System.out.println("playdair-cipher SA");
         Scanner cin = new Scanner(System.in);
